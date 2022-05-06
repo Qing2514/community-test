@@ -11,7 +11,7 @@
     <groupId>com.yx</groupId>
     <artifactId>community-test</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>community</name>
+    <name>community-test</name>
     <description>社区物业管理系统</description>
     <properties>
         <java.version>1.8</java.version>

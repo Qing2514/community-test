@@ -11,7 +11,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/community?useUnicode=true&amp&characterEncoding=utf-8&serverTimezone=UTC
     username: root
-    password: 123456
+    password: root
   devtools:  # 热部署
     livereload:
       enabled: true
