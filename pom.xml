@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yx</groupId>
-    <artifactId>community</artifactId>
+    <artifactId>community-test</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>community</name>
     <description>社区物业管理系统</description>
