@@ -37,7 +37,7 @@ public class LoginControllerTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"admin", "123456", 1},
-                {123456, "123456", 1},
+                // {123456, "123456", 1},
                 // {"admin", 123456},
                 // {123456, 123456},
                 // {null, "123456"},
