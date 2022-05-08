@@ -2,7 +2,6 @@ package com.yx.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
-import com.yx.model.Clockin;
 import com.yx.model.Clockinnew;
 import com.yx.model.Owner;
 import com.yx.model.Userinfo;
@@ -42,10 +41,10 @@ public class ClockInNewController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IClockInNewService clockinnewService;
+    public IClockInNewService clockinnewService;
 
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
 
     @RequestMapping("/queryClockInAll")

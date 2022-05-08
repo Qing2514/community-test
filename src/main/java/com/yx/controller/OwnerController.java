@@ -31,10 +31,10 @@ public class OwnerController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
     @Resource
-    private IUserinfoService userinfoService;
+    public IUserinfoService userinfoService;
 
     @RequestMapping("/queryOwnerAll")
     public JsonObject queryOwnerAll(@RequestParam(defaultValue = "1") Integer page,
