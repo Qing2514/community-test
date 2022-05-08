@@ -35,10 +35,10 @@ public class UserinfoController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IUserinfoService userinfoService;
+    public IUserinfoService userinfoService;
 
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
     @RequestMapping("/queryUserInfoAll")
     public JsonObject queryUserInfoAll(@RequestParam(defaultValue = "1") Integer page,

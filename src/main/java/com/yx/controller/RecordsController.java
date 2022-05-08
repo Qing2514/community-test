@@ -14,7 +14,10 @@ import com.yx.util.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -36,13 +39,13 @@ public class RecordsController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IRecordsService recordsService;
+    public IRecordsService recordsService;
 
     @Resource
-    private IPropertyTypeService propertyTypeService;
+    public IPropertyTypeService propertyTypeService;
 
     @Resource
-    private IPropertyInfoService propertyInfoService;
+    public IPropertyInfoService propertyInfoService;
 
     /**
      * 分页查询记录信息

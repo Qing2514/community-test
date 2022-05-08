@@ -34,7 +34,7 @@ public class ParkingController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IParkingService parkingService;
+    public IParkingService parkingService;
 
     @RequestMapping("/queryParkAll")
     public JsonObject queryParkAll(@RequestParam(defaultValue = "1") Integer page,
