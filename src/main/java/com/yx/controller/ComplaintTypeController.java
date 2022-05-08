@@ -30,7 +30,7 @@ public class ComplaintTypeController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IComplaintTypeService complaintTypeService;
+    public IComplaintTypeService complaintTypeService;
 
 
     @RequestMapping("/queryAll")

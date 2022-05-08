@@ -40,13 +40,13 @@ public class CarchargeController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private ICarchargeService carchargeService;
+    public ICarchargeService carchargeService;
 
     @Resource
-    private IParkingService parkingService;
+    public IParkingService parkingService;
 
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
 
     @RequestMapping("/queryCarchargeAll")
