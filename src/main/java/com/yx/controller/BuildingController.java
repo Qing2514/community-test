@@ -34,7 +34,7 @@ public class BuildingController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IBuildingService buildingService;
+    public IBuildingService buildingService;
 
 
     @RequestMapping("/queryBuildAll")

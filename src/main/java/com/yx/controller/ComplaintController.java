@@ -3,12 +3,12 @@ package com.yx.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.pagehelper.PageInfo;
 import com.yx.model.Complaint;
+import com.yx.model.Owner;
+import com.yx.model.Userinfo;
 import com.yx.service.IComplaintService;
 import com.yx.service.IOwnerService;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
-import com.yx.model.Owner;
-import com.yx.model.Userinfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -39,14 +39,15 @@ public class ComplaintController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IComplaintService complaintService;
+    public IComplaintService complaintService;
+
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
     @RequestMapping("/queryComplaintAll")
     public JsonObject queryComplaintAll(Complaint complaint, String numbers,
-                                        @RequestParam(defaultValue = "1") Integer page,
-                                        @RequestParam(defaultValue = "15") Integer limit){
+                                        @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue =
+            "15") Integer limit) {
 
 
         PageInfo<Complaint> pageInfo=complaintService.findComplaintAll(page,limit,complaint);
