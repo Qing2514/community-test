@@ -23,6 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="Userinfo对象", description="")
+@AllArgsConstructor
 @NoArgsConstructor
 public class Userinfo implements Serializable {
 
