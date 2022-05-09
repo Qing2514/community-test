@@ -34,13 +34,11 @@ public class LoginControllerTest {
     @Parameterized.Parameters(name = "{index}: username = {0}, password = {1}, type = {2}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"admin", "123456", 1}, {123456, "123456", 1}, {"admin", 123456, 1}, {123456, 123456, 1}, {null,
-                                                                                                           "123456",
-                                                                                                           1}, {
-                    "admin", null, 1}, {null, null, 1}, {"admin", 1}, {"admin", "123456", "111", 1}, {
-                    "adminadminadmin", "123456", 1}, {"admin", "123456123456", 1}, {"adminadminadmin", "123456123456"
-                        , 1}, {"ad", "123456", 1}, {"admin", "123", 1}, {"ad", "123", 1}, {"*****", "123456", 1}, {
-                    "admin", "******", 1}, {"*****", "******", 1},
+                {"admin", "123456", 1}, {123456, "123456", 1}, {"admin", 123456, 1}, {123456, 123456, 1},
+                {null, "123456", 1}, {"admin", null, 1}, {null, null, 1}, {"admin", 1}, {"admin", "123456", "111", 1},
+                {"adminadminadmin", "123456", 1}, {"admin", "123456123456", 1}, {"adminadminadmin", "123456123456", 1},
+                {"ad", "123456", 1}, {"admin", "123", 1}, {"ad", "123", 1}, {"*****", "123456", 1},
+                {"admin", "******", 1}, {"*****", "******", 1},
                 });
     }
 
