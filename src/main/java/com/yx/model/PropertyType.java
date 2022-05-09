@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -23,6 +25,8 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel(value="PropertyType对象", description="")
 @TableName("property_type")
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropertyType implements Serializable {
     private static final long serialVersionUID = 1L;
 

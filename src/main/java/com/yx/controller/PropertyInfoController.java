@@ -41,10 +41,10 @@ public class PropertyInfoController {
     private IPropertyInfoService propertyInfoService;
 
     @Resource
-    private IHouseService houseService;
+    public IHouseService houseService;
 
     @Resource
-    private IOwnerService ownerService;
+    public IOwnerService ownerService;
 
     @Resource
     private IPropertyTypeService propertyTypeService;

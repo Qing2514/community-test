@@ -23,10 +23,6 @@ class CommunityApplicationTests {
 
     @Test
     void contextLoads() {
-        BuildingServiceImpl service = SpringUtils.getBean(BuildingServiceImpl.class);
-        Building byId = service.findById(1L);
-        System.out.println("id  = 1 : " + byId);
-        System.out.println(service);
     }
 
     @Test

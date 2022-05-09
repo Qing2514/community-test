@@ -34,7 +34,7 @@ public class HouseController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IHouseService houseService;
+    public IHouseService houseService;
 
     @RequestMapping("/houseAll")
     public JsonObject queryHouseAll(String numbers,
