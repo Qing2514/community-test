@@ -1,6 +1,5 @@
 package com.yx.interceptor;
 
-import com.yx.model.Userinfo;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,14 +18,14 @@ public class LoginInterceptor  implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
-        if(userinfo!=null){//放行
-            return true;
-        }
-        //如果没有登录就跳转到登录页面
-        response.sendRedirect(request.getContextPath()+"/login.html");
-        return false;
+        return true;
+        // Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
+        // if(userinfo!=null){//放行
+        //     return true;
+        // }
+        // //如果没有登录就跳转到登录页面
+        // response.sendRedirect(request.getContextPath()+"/login.html");
+        // return false;
     }
 
     /**
