@@ -11,7 +11,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,16 +38,16 @@ public class RepairController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IRepairService repairService;
-    @Resource
-    private IRepairtypeService repairtypeService;
+    public IRepairService repairService;
 
     @Resource
-    private IOwnerService ownerService;
+    public IRepairtypeService repairtypeService;
+
+    @Resource
+    public IOwnerService ownerService;
 
     @RequestMapping("/queryRepairAll")
-    public JsonObject queryRepairAll(Repair repair,
-                                     @RequestParam(defaultValue = "1") Integer page,
+    public JsonObject queryRepairAll(Repair repair, @RequestParam(defaultValue = "1") Integer page,
                                      @RequestParam(defaultValue = "15") Integer limit){
 
 

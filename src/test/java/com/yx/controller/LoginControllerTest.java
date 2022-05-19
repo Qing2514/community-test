@@ -6,8 +6,6 @@ import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.omg.CORBA.UserException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,44 +34,36 @@ public class LoginControllerTest {
     @Parameterized.Parameters(name = "{index}: username = {0}, password = {1}, type = {2}")
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {"admin", "123456", 1},
-                {123456, "123456", 1},
-                 {"admin", 123456,1},
-                 {123456, 123456,1},
-                 {null, "123456",1},
-                 {"admin", null,1},
-                 {null, null,1},
-                 {"admin",1},
-                 {"admin", "123456","111",1},
-                 {"adminadminadmin", "123456",1},
-                 {"admin", "123456123456",1},
-                 {"adminadminadmin", "123456123456",1},
-                 {"ad", "123456",1},
-                 {"admin", "123",1},
-                 {"ad", "123",1},
-                 {"*****", "123456",1},
-                 {"admin", "******",1},
-                 {"*****", "******",1},
-        });
+                {"admin", "123456", 1}, {123456, "123456", 1}, {"admin", 123456, 1}, {123456, 123456, 1}, {null,
+                                                                                                           "123456",
+                                                                                                           1}, {
+                    "admin", null, 1}, {null, null, 1}, {"admin", 1}, {"admin", "123456", "111", 1}, {
+                    "adminadminadmin", "123456", 1}, {"admin", "123456123456", 1}, {"adminadminadmin", "123456123456"
+                        , 1}, {"ad", "123456", 1}, {"admin", "123", 1}, {"ad", "123", 1}, {"*****", "123456", 1}, {
+                    "admin", "******", 1}, {"*****", "******", 1},
+                });
     }
 
     @Test
-    public void testExecute() {
+    public void testLoginIn() {
+        try {
+            Userinfo user = new Userinfo(username, password, type);
 
-        Userinfo user = new Userinfo(username, password, type);
+            HttpSession session = EasyMock.createMock(HttpSession.class);
+            IUserinfoService userinfoService = EasyMock.createMock(IUserinfoService.class);
+            HttpServletRequest request = EasyMock.createMock(HttpServletRequest.class);
+            loginController.userinfoService = userinfoService;
 
-        HttpSession session = EasyMock.createMock(HttpSession.class);
-        IUserinfoService userinfoService = EasyMock.createMock(IUserinfoService.class);
-        HttpServletRequest request = EasyMock.createMock(HttpServletRequest.class);
-        loginController.userinfoService = userinfoService;
+            EasyMock.expect(userinfoService.queryUserByNameAndPwd(user)).andReturn(user);
+            EasyMock.expect(request.getSession()).andReturn(session);
+            EasyMock.replay(userinfoService);
+            EasyMock.replay(request);
 
-        EasyMock.expect(userinfoService.queryUserByNameAndPwd(user)).andReturn(user);
-        EasyMock.expect(request.getSession()).andReturn(session);
-        EasyMock.replay(userinfoService);
-        EasyMock.replay(request);
+            Map map = loginController.loginIn(user, request);
+            assertEquals(200, map.get("code"));
 
-        Map map = loginController.loginIn(user, request);
-        assertEquals(200, map.get("code"));
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

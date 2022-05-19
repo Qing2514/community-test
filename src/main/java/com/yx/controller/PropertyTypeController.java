@@ -30,7 +30,7 @@ public class PropertyTypeController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IPropertyTypeService propertyTypeService;
+    public IPropertyTypeService propertyTypeService;
 
 
     @RequestMapping("/queryAll")

@@ -2,11 +2,11 @@ package com.yx.controller;
 
 import com.yx.model.Userinfo;
 import com.yx.service.IUserinfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,8 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
-    @Autowired
+
+    @Resource
     public IUserinfoService userinfoService;
 
     @RequestMapping("/loginIn")

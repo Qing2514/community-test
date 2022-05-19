@@ -29,9 +29,7 @@ public class RepairtypeController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private IRepairtypeService repairtypeService;
-
-
+    public IRepairtypeService repairtypeService;
 
     @ApiOperation(value = "新增")
     @PostMapping()
