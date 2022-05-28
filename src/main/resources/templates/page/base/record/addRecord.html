@@ -39,7 +39,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label required">抄表员</label>
             <div class="layui-input-block">
-                <input type="text" name="meter" lay-verify="required" class="layui-input">
+                <select name="meter" lay-verify="required" id="meter" lay-search="">
+                    <option value="">请选择抄表员</option>
+                </select>
             </div>
         </div>
 
@@ -101,7 +103,20 @@
             form.render('select');
         },"json");
 
-
+        //查询所有的用户信息并渲染到select中
+        $.get("userinfo/list", {}, function (data) {
+            var list = data;
+            var select = document.getElementById("meter");
+            if (list != null || list.size() > 0) {
+                for (var c in list) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", list[c].id);
+                    option.innerText = list[c].username;
+                    select.appendChild(option);
+                }
+            }
+            form.render('select');
+        }, "json");
 
         // 当前弹出层，防止ID被覆盖
         var parentIndex = layer.index;

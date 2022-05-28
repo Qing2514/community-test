@@ -21,9 +21,10 @@
         </sql>
 
 
-    <delete id="deleteByHouIdAndTime" >
+    <delete id="deleteByHouIdAndTimeAndTypeId" >
        <!--delete from property_info where house_id=#{houId} and end_date  like '%${endDate}%'*-->
-        delete from property_info where house_id=#{houId} and end_date=#{endDate}
+        update property_info set status=0
+        where house_id=#{houId} and end_date > #{endDate} and type_id=#{typeId}
     </delete>
 
     <resultMap id="queryListAllMap" type="com.yx.model.PropertyInfo" extends="BaseResultMap">

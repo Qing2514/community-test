@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author kappy
@@ -45,28 +45,29 @@ public class RecordsController {
     private IPropertyInfoService propertyInfoService;
 
     /**
-     * 分页查询记录信息
+     * 分页查询抄表记录信息
+     *
      * @param page
      * @param limit
      * @param recordVo
      * @return
      */
     @RequestMapping("/queryRecordsAll")
-   public JsonObject queryRecordsAll(@RequestParam(defaultValue = "1") Integer page,
-                                     @RequestParam(defaultValue = "15") Integer limit,
-                                     RecordVo recordVo){
-       PageInfo <RecordVo> pageInfo=recordsService.findRecordsAll(page,limit,recordVo);
-       return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+    public JsonObject queryRecordsAll(@RequestParam(defaultValue = "1") Integer page,
+                                      @RequestParam(defaultValue = "15") Integer limit,
+                                      RecordVo recordVo) {
+        PageInfo<RecordVo> pageInfo = recordsService.findRecordsAll(page, limit, recordVo);
+        return new JsonObject(0, "ok", pageInfo.getTotal(), pageInfo.getList());
 
-   }
+    }
 
 
     /**
-     *  抄表的添加工作
+     * 抄表的添加工作
      */
     @RequestMapping("/add")
-    @Transactional(rollbackFor = {RuntimeException.class,Error.class})
-    public R add(@RequestBody Records records){
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    public R add(@RequestBody Records records) {
         /*
            步骤：
              1、添加抄表记录信息
@@ -83,77 +84,79 @@ public class RecordsController {
          */
 
         //根据参数房子id和类型id 获取最后一次登记信息
-        Integer houId=records.getHouseId();
-        Integer typeId=records.getTypeId();
+        Long houId = records.getHouseId();
+        Long typeId = records.getTypeId();
         //获取最后一次记录信息
-        Records rec=recordsService.queryByHouIdAndTypeId(houId,typeId);
-        if(rec!=null){
+        Records rec = recordsService.queryByHouIdAndTypeId(houId, typeId);
+        if (rec != null) {
             //获取上次表的度数  上次抄表时间
             records.setUpTime(rec.getOnTime());
             records.setNum(rec.getNum2());
-        }else{
+        } else {
             records.setUpTime(records.getOnTime());
             records.setNum(0.0);
         }
 
-          //添加记录信息到数据库
-          records.setCheckTime(new Date());
-          recordsService.add(records);
+        //添加记录信息到数据库
+        records.setCheckTime(new Date());
+        recordsService.add(records);
 
-          //2 添加费用信息
+        //2 添加费用信息
 
-        PropertyInfo info=new PropertyInfo();
+        PropertyInfo info = new PropertyInfo();
         info.setHouseId(houId);
         info.setTypeId(typeId);
         info.setStatus(0);//未缴费
-        if(rec!=null){
+        if (rec != null) {
             info.setStartDate(rec.getUpTime());
-        }else {
+        } else {
             info.setStartDate(records.getOnTime());
         }
         info.setEndDate(records.getOnTime());
 
         //根据类型的id查询类型的费用标准
-        PropertyType type=propertyTypeService.findById(new Long(typeId));
-        double  price=type.getPrice();//获取收费标准
+        PropertyType type = propertyTypeService.findById(typeId);
+        double price = type.getPrice();//获取收费标准
         //获取度数
-        double money=(records.getNum2()-records.getNum())*price;
+        double money = (records.getNum2() - records.getNum()) * price;
         info.setMoney(money);
         info.setRemarks(records.getRemarks());
         //添加记录信息
-        int num= propertyInfoService.add(info);
+        int num = propertyInfoService.add(info);
 
-        if(num>0){
+        if (num > 0) {
             return R.ok();
-        }else{
+        } else {
             return R.fail("异常");
         }
-      }
+    }
 
     /**
-     * 根据ID删除记录
-     * @param ids
-     * @return
+     * 根据ID删除抄表记录
+     *
+     * @param ids 需要删除的抄表记录ID
+     * @return 删除结果
      */
-      @RequestMapping("/deleteByIds")
-      @Transactional(rollbackFor = {RuntimeException.class,Error.class})
-      public R deleteByIds(String ids){
-           //把字符串转list集合
-           List<String> list=Arrays.asList(ids.split(","));
-           for(String id : list){
-               Long idLong=Long.parseLong(id);
-               //根据id获取对应的记录信息获取登记时间以及房子id
-               Records records=recordsService.findById(idLong);
-               //获取房子id
-               Integer houId=records.getHouseId();
-               //获取时间
-               Date onTime=records.getOnTime();
-               //删除登记表记录信息
-               recordsService.delete(idLong);
-               //物业收费信息表相关信息
-               propertyInfoService.deleteInfoByHouIdAndTime(houId ,onTime);
-           }
-          return R.ok();
-      }
+    @RequestMapping("/deleteByIds")
+    @Transactional(rollbackFor = {RuntimeException.class, Error.class})
+    public R deleteByIds(String ids) {
+        //把字符串转list集合
+        List<String> list = Arrays.asList(ids.split(","));
+        for (String id : list) {
+            Long idLong = Long.parseLong(id);
+            //根据id获取对应的记录信息获取登记时间以及房子id
+            Records records = recordsService.findById(idLong);
+            //获取房子id
+            Long houId = records.getHouseId();
+            //获取时间
+            Date onTime = records.getOnTime();
+            //删除登记表记录信息
+            recordsService.delete(idLong);
+            Long typeId = records.getTypeId();
+            //物业收费信息表相关信息,修改状态为未缴费
+            propertyInfoService.deleteInfoByHouIdAndTimeAndTypeId(houId, onTime, typeId);
+        }
+        return R.ok();
+    }
 
 }

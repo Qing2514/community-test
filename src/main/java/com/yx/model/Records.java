@@ -14,12 +14,12 @@ public class Records implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private Integer typeId;//费用类型Id
+    private Long typeId;//费用类型Id
     private Double num;//上次度数
     private Double num2;//本次度数
-    private Integer houseId;
+    private Long houseId;
 
     private String meter;//抄表员
 
@@ -34,11 +34,11 @@ public class Records implements Serializable {
 
     private String remarks;
 
-    public Integer getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
 
@@ -58,11 +58,11 @@ public class Records implements Serializable {
         this.num2 = num2;
     }
 
-    public Integer getHouseId() {
+    public Long getHouseId() {
         return houseId;
     }
 
-    public void setHouseId(Integer houseId) {
+    public void setHouseId(Long houseId) {
         this.houseId = houseId;
     }
 

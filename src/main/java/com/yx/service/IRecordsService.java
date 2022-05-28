@@ -25,7 +25,7 @@ public interface IRecordsService extends IService<Records>{
     /**
      * 根据房子id和类型id查询记录信息最后一条
      */
-    Records queryByHouIdAndTypeId(Integer houId, Integer typeId);
+    Records queryByHouIdAndTypeId(Long houId, Long typeId);
 
     int add(Records records);
 

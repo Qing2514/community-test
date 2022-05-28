@@ -25,7 +25,9 @@ public interface IPropertyInfoService extends IService<PropertyInfo> {
     /**
      * 根据时间和房子id获取相关记录信息
      */
-    void deleteInfoByHouIdAndTime(@Param("houId") Integer houId,@Param("endDate") Date endDate);
+    void deleteInfoByHouIdAndTimeAndTypeId(@Param("houId") Long houId,
+                                           @Param("endDate") Date endDate,
+                                           @Param("typeId") Long typeId);
 
 
     /**

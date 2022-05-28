@@ -40,6 +40,7 @@ public class UserinfoController {
     @Resource
     private IOwnerService ownerService;
 
+
     @RequestMapping("/queryUserInfoAll")
     public JsonObject queryUserInfoAll(@RequestParam(defaultValue = "1") Integer page,
                                     @RequestParam(defaultValue = "15") Integer limit,
@@ -89,15 +90,9 @@ public class UserinfoController {
         }
     }
 
-    @ApiOperation(value = "查询分页数据")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "页码"),
-        @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<Userinfo> findListByPage(@RequestParam Integer page,
-                                          @RequestParam Integer pageCount){
-        return userinfoService.findListByPage(page, pageCount);
+    @GetMapping("/list")
+    public List<Userinfo> findAll(){
+        return userinfoService.list();
     }
 
     @ApiOperation(value = "id查询")

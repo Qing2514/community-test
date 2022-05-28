@@ -39,12 +39,12 @@ public class PropertyInfoServiceImpl extends ServiceImpl<PropertyInfoMapper, Pro
     }
 
     @Override
-    public void deleteInfoByHouIdAndTime(Integer houId, Date endTime) {
+    public void deleteInfoByHouIdAndTimeAndTypeId(Long houId, Date endTime, Long typeId) {
 
          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
          String dateString = formatter.format(endTime);
-         dateString=dateString.substring(0,9);
-         propertyInfoDao.deleteByHouIdAndTime(houId,dateString);
+         // dateString=dateString.substring(0,9);
+         propertyInfoDao.deleteByHouIdAndTimeAndTypeId(houId, dateString, typeId);
     }
 
     @Override

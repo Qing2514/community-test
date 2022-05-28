@@ -50,7 +50,7 @@ public class PropertyInfo implements Serializable {
 
     private Integer status;
 
-    private Integer houseId;
+    private Long houseId;
 
     private String remarks;
 

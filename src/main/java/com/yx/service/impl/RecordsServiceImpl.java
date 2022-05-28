@@ -34,7 +34,7 @@ public class RecordsServiceImpl extends ServiceImpl<RecordsMapper, Records> impl
     }
 
     @Override
-    public Records queryByHouIdAndTypeId(Integer houId, Integer typeId) {
+    public Records queryByHouIdAndTypeId(Long houId, Long typeId) {
         return recordsDao.queryByHouIdAndTypeId(houId,typeId);
     }
 
