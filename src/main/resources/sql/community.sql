@@ -20,10 +20,10 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `building`;
 CREATE TABLE `building` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `numbers` varchar(50) DEFAULT NULL,
-  `uints` varchar(50) DEFAULT NULL,
-  `remarks` varchar(250) DEFAULT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT "主键",
+  `numbers` varchar(50) DEFAULT NULL COMMENT "楼号",
+  `uints` varchar(50) DEFAULT NULL COMMENT "单元",
+  `remarks` varchar(250) DEFAULT NULL COMMENT "备注",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
@@ -42,14 +42,14 @@ INSERT INTO `building` VALUES ('13', '20栋', '2单元', '无');
 DROP TABLE IF EXISTS `carcharge`;
 CREATE TABLE `carcharge` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `pay_date` datetime DEFAULT NULL,
-  `end_date` varchar(25) DEFAULT NULL,
-  `money` double(10,2) DEFAULT NULL,
-  `status` int(2) DEFAULT NULL,
-  `owner_id` int(10) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `pay_date` datetime DEFAULT NULL COMMENT "开始时间",
+  `end_date` varchar(25) DEFAULT NULL COMMENT "结束时间",
+  `money` double(10,2) DEFAULT NULL COMMENT "金额",
+  `status` int(2) DEFAULT NULL COMMENT "状态",
+  `owner_id` int(10) DEFAULT NULL COMMENT "户主ID",
+  `remarks` varchar(255) DEFAULT NULL COMMENT "备注",
   `type` varchar(10) DEFAULT NULL COMMENT '收费类型',
-  `park_id` int(10) DEFAULT NULL,
+  `park_id` int(10) DEFAULT NULL COMMENT "parking主键",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
@@ -68,10 +68,10 @@ INSERT INTO `carcharge` VALUES ('10', '2022-02-24 16:00:00', '2022-06-26', '50.0
 DROP TABLE IF EXISTS `clockin`;
 CREATE TABLE `clockin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `clock_in_time` datetime DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `house_id` int(11) DEFAULT NULL,
-  `building_id` int(11) DEFAULT NULL,
+  `clock_in_time` datetime DEFAULT NULL COMMENT "parking主键",
+  `owner_id` int(11) DEFAULT NULL COMMENT "parking主键",
+  `house_id` int(11) DEFAULT NULL COMMENT "parking主键",
+  `building_id` int(11) DEFAULT NULL COMMENT "parking主键",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
@@ -91,12 +91,12 @@ INSERT INTO `clockin` VALUES ('15', '2021-04-27 07:35:23', '2', '2', '7');
 DROP TABLE IF EXISTS `clockinnew`;
 CREATE TABLE `clockinnew` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `report_date` datetime DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
+  `report_date` datetime DEFAULT NULL COMMENT "登记时间",
+  `owner_id` int(11) DEFAULT NULL COMMENT "业主ID",
   `type1` int(11) DEFAULT NULL COMMENT '是否为疑似病例如咳嗽，发热（0或1）',
   `type2` int(11) DEFAULT NULL COMMENT '是否确诊为肺炎病例',
-  `today_address` varchar(100) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `today_address` varchar(100) DEFAULT NULL COMMENT "迄今住址",
+  `remarks` varchar(255) DEFAULT NULL COMMENT "备注",
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
@@ -116,13 +116,13 @@ INSERT INTO `clockinnew` VALUES ('19', '2021-10-29 16:00:00', '9', '0', '0', '�
 DROP TABLE IF EXISTS `complaint`;
 CREATE TABLE `complaint` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `com_id` varchar(25) DEFAULT NULL,
-  `com_date` datetime DEFAULT NULL,
-  `handle_date` datetime DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `status` int(2) DEFAULT NULL,
+  `com_id` varchar(25) DEFAULT NULL COMMENT '投诉类型ID',
+  `com_date` datetime DEFAULT NULL COMMENT '投诉时间',
+  `handle_date` datetime DEFAULT NULL COMMENT '处理时间',
+  `owner_id` int(11) DEFAULT NULL COMMENT '投诉人ID',
+  `status` int(2) DEFAULT NULL COMMENT '状态',
   `clr` int(11) DEFAULT NULL COMMENT '处理人',
-  `remarks` varchar(255) DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -139,9 +139,9 @@ INSERT INTO `complaint` VALUES ('4', '1', '2020-11-24 14:21:01', null, '2', '0',
 DROP TABLE IF EXISTS `complaint_type`;
 CREATE TABLE `complaint_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `remarks` varchar(250) DEFAULT NULL,
-  `status` int(10) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL COMMENT '内容',
+  `remarks` varchar(250) DEFAULT NULL COMMENT '备注',
+  `status` int(10) DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -157,13 +157,13 @@ INSERT INTO `complaint_type` VALUES ('2', '绿植太差', null, null);
 DROP TABLE IF EXISTS `house`;
 CREATE TABLE `house` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `storey` int(5) DEFAULT NULL,
-  `numbers` varchar(50) DEFAULT NULL,
-  `status` int(5) DEFAULT NULL,
-  `into_date` datetime DEFAULT NULL,
-  `building_id` int(5) DEFAULT NULL,
-  `remarks` varchar(50) DEFAULT NULL,
-  `area` double(10,2) DEFAULT NULL,
+  `storey` int(5) DEFAULT NULL COMMENT '楼层:没啥用',
+  `numbers` varchar(50) DEFAULT NULL COMMENT '房号',
+  `status` int(5) DEFAULT NULL COMMENT '状态:1为入住,0为未入住',
+  `into_date` datetime DEFAULT NULL COMMENT '入住时间',
+  `building_id` int(5) DEFAULT NULL COMMENT '楼宇ID',
+  `remarks` varchar(50) DEFAULT NULL COMMENT '备注',
+  `area` double(10,2) DEFAULT NULL COMMENT '面积',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -176,24 +176,6 @@ INSERT INTO `house` VALUES ('3', null, '201', '1', '2020-11-17 15:52:58', '1', n
 INSERT INTO `house` VALUES ('4', null, '602', '1', '2021-05-05 16:00:00', '11', '', '98.00');
 INSERT INTO `house` VALUES ('5', null, '405', '1', '2022-02-27 16:00:00', '1', '', '100.00');
 
--- ----------------------------
--- Table structure for notice
--- ----------------------------
-DROP TABLE IF EXISTS `notice`;
-CREATE TABLE `notice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `topic` varchar(100) DEFAULT NULL COMMENT '主题',
-  `content` varchar(250) DEFAULT NULL,
-  `fbr` varchar(50) DEFAULT NULL,
-  `fbdate` datetime DEFAULT NULL,
-  `remarks` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of notice
--- ----------------------------
-INSERT INTO `notice` VALUES ('1', '测试主题1', '测试内容太1', 'admin', '2022-02-27 16:00:00', '');
 
 -- ----------------------------
 -- Table structure for owner
@@ -201,13 +183,13 @@ INSERT INTO `notice` VALUES ('1', '测试主题1', '测试内容太1', 'admin', 
 DROP TABLE IF EXISTS `owner`;
 CREATE TABLE `owner` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) DEFAULT NULL,
-  `tel` varchar(25) DEFAULT NULL,
-  `sex` varchar(5) DEFAULT NULL,
-  `identity` varchar(25) DEFAULT NULL,
-  `house_id` int(11) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
-  `password` varchar(28) DEFAULT NULL,
+  `username` varchar(25) DEFAULT NULL COMMENT '姓名',
+  `tel` varchar(25) DEFAULT NULL COMMENT '手机号',
+  `sex` varchar(5) DEFAULT NULL COMMENT '性别',
+  `identity` varchar(25) DEFAULT NULL COMMENT '身份证号',
+  `house_id` int(11) DEFAULT NULL COMMENT '房子ID',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
+  `password` varchar(28) DEFAULT NULL COMMENT '密码',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -224,10 +206,10 @@ INSERT INTO `owner` VALUES ('9', 'yx7845', '15270839876', '男', '587968932', '4
 DROP TABLE IF EXISTS `parking`;
 CREATE TABLE `parking` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `numbers` varchar(25) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `numbers` varchar(25) DEFAULT NULL COMMENT '车位号',
+  `status` int(11) DEFAULT NULL COMMENT '状态',
+  `owner_id` int(11) DEFAULT NULL COMMENT '业主ID',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -243,29 +225,30 @@ INSERT INTO `parking` VALUES ('2', 'A10002', '1', '2', '');
 DROP TABLE IF EXISTS `property_info`;
 CREATE TABLE `property_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_id` int(11) DEFAULT NULL,
-  `money` double(10,2) DEFAULT NULL,
-  `start_date` datetime DEFAULT NULL,
-  `end_date` datetime DEFAULT NULL,
-  `status` int(2) DEFAULT NULL,
-  `house_id` int(11) DEFAULT NULL,
-  `remarks` varchar(200) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL COMMENT '费用类型ID',
+  `money` double(10,2) DEFAULT NULL COMMENT '费用',
+  `number` double(10,2) DEFAULT 0 COMMENT '使用量',
+  `start_date` datetime DEFAULT NULL COMMENT '开始时间',
+  `end_date` datetime DEFAULT NULL COMMENT '结束时间',
+  `status` int(2) DEFAULT NULL COMMENT '状态:0为未缴费,1为已缴费',
+  `house_id` int(11) DEFAULT NULL COMMENT '房屋ID',
+  `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of property_info
 -- ----------------------------
-INSERT INTO `property_info` VALUES ('1', '2', '900.00', '2020-10-01 09:28:11', '2020-12-29 16:00:00', '1', '1', '啊水水');
-INSERT INTO `property_info` VALUES ('4', '1', '208.00', '2020-09-30 16:00:00', '2020-12-30 16:00:00', '1', '1', '物业费');
-INSERT INTO `property_info` VALUES ('5', '3', '100.00', '2020-11-13 16:00:00', '2020-11-13 16:00:00', '1', '1', 'wu ');
-INSERT INTO `property_info` VALUES ('23', '1', '208.00', '2020-09-30 16:00:00', '2020-12-30 16:00:00', '0', '1', 'ceshi');
-INSERT INTO `property_info` VALUES ('24', '1', '234.00', '2020-09-30 16:00:00', '2020-12-30 16:00:00', '0', '2', 'ceshi');
-INSERT INTO `property_info` VALUES ('32', '1', '208.00', '2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '1', '555');
-INSERT INTO `property_info` VALUES ('36', '1', '208.00', '2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '1', '111');
-INSERT INTO `property_info` VALUES ('37', '1', '234.00', '2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '2', '111');
-INSERT INTO `property_info` VALUES ('39', '1', '254.80', '2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '4', '111');
-INSERT INTO `property_info` VALUES ('40', '3', '20.00', '2022-02-24 16:00:00', '2022-02-24 16:00:00', '0', '1', 'ww');
+INSERT INTO `property_info` VALUES ('1', '2', '900.00', 200, '2020-10-01 09:28:11', '2020-12-29 16:00:00', '1', '1', '啊水水');
+INSERT INTO `property_info` VALUES ('4', '1', '208.00',  80,'2020-09-30 16:00:00', '2020-12-30 16:00:00', '1', '1', '物业费');
+INSERT INTO `property_info` VALUES ('5', '3', '100.00',  200,'2020-11-13 16:00:00', '2020-11-13 16:00:00', '1', '1', 'wu ');
+INSERT INTO `property_info` VALUES ('23', '1', '208.00', 80,'2020-09-30 16:00:00', '2020-12-30 16:00:00', '0', '1', 'ceshi');
+INSERT INTO `property_info` VALUES ('24', '1', '234.00', 90,'2020-09-30 16:00:00', '2020-12-30 16:00:00', '0', '2', 'ceshi');
+INSERT INTO `property_info` VALUES ('32', '1', '208.00', 80,'2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '1', '555');
+INSERT INTO `property_info` VALUES ('36', '1', '208.00', 80,'2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '1', '111');
+INSERT INTO `property_info` VALUES ('37', '1', '234.00', 90,'2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '2', '111');
+INSERT INTO `property_info` VALUES ('39', '1', '254.80', 98,'2022-02-24 16:00:00', '2022-05-26 16:00:00', '0', '4', '111');
+INSERT INTO `property_info` VALUES ('40', '3', '20.00', 40,'2022-02-24 16:00:00', '2022-02-24 16:00:00', '0', '1', 'ww');
 
 -- ----------------------------
 -- Table structure for property_type
@@ -273,10 +256,10 @@ INSERT INTO `property_info` VALUES ('40', '3', '20.00', '2022-02-24 16:00:00', '
 DROP TABLE IF EXISTS `property_type`;
 CREATE TABLE `property_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(25) DEFAULT NULL,
-  `price` double(10,2) DEFAULT NULL,
-  `unit` varchar(25) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `name` varchar(25) DEFAULT NULL COMMENT '费用名',
+  `price` double(10,2) DEFAULT NULL COMMENT '单价',
+  `unit` varchar(25) DEFAULT NULL COMMENT '单位',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -294,25 +277,26 @@ INSERT INTO `property_type` VALUES ('4', '车位费', '260.00', '一个', null);
 DROP TABLE IF EXISTS `records`;
 CREATE TABLE `records` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type_id` int(11) DEFAULT NULL,
-  `num` double(5,2) DEFAULT NULL,
-  `num2` double(5,2) DEFAULT NULL,
-  `house_id` int(11) DEFAULT NULL,
-  `up_time` datetime DEFAULT NULL,
-  `on_time` datetime DEFAULT NULL,
-  `check_time` datetime DEFAULT NULL,
-  `meter` varchar(25) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `type_id` int(11) DEFAULT NULL COMMENT '费用类型',
+  `num` double(5,2) DEFAULT NULL COMMENT '上次度数',
+  `num2` double(5,2) DEFAULT NULL COMMENT '本次度数',
+  `house_id` int(11) DEFAULT NULL COMMENT '房屋ID',
+  `up_time` datetime DEFAULT NULL COMMENT '更新时间:没啥用',
+  `on_time` datetime DEFAULT NULL COMMENT '申请时间:没啥用',
+  `check_time` datetime DEFAULT NULL COMMENT '登记时间',
+  `meter` varchar(25) DEFAULT NULL COMMENT '抄表员姓名',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of records
 -- ----------------------------
-INSERT INTO `records` VALUES ('1', '2', '200.00', '300.00', '1', '2020-10-01 09:28:11', '2020-11-06 09:28:16', '2020-11-12 09:28:23', '张三', '无');
-INSERT INTO `records` VALUES ('2', '2', '100.00', '200.00', '1', '2020-09-23 10:34:48', '2020-10-31 10:34:57', '2020-10-30 10:35:05', 'yx', '');
-INSERT INTO `records` VALUES ('9', '3', '0.00', '123.00', '4', '2021-05-05 16:00:00', '2021-05-05 16:00:00', '2021-05-06 13:48:56', 'zhangsan', '');
-INSERT INTO `records` VALUES ('10', '3', '0.00', '40.00', '1', '2022-02-24 16:00:00', '2022-02-24 16:00:00', '2022-02-25 13:56:22', 'yx5411', 'ww');
+INSERT INTO `records` VALUES 
+('1', '2', '200.00', '300.00', '1', '2020-10-01 09:28:11', '2020-11-06 09:28:16', '2020-11-12 09:28:23', '张三', '无'),
+('2', '2', '100.00', '200.00', '1', '2020-09-23 10:34:48', '2020-10-31 10:34:57', '2020-10-30 10:35:05', 'yx', ''),
+('9', '3', '0.00', '123.00', '4', '2021-05-05 16:00:00', '2021-05-05 16:00:00', '2021-05-06 13:48:56', 'zhangsan', ''),
+('10', '3', '0.00', '40.00', '1', '2022-02-24 16:00:00', '2022-02-24 16:00:00', '2022-02-25 13:56:22', 'yx5411', 'ww');
 
 -- ----------------------------
 -- Table structure for repair
@@ -320,13 +304,13 @@ INSERT INTO `records` VALUES ('10', '3', '0.00', '40.00', '1', '2022-02-24 16:00
 DROP TABLE IF EXISTS `repair`;
 CREATE TABLE `repair` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `com_id` varchar(25) DEFAULT NULL,
-  `com_date` datetime DEFAULT NULL,
-  `handle_date` datetime DEFAULT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `status` int(2) DEFAULT NULL,
-  `clr` int(11) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
+  `com_id` varchar(25) DEFAULT NULL COMMENT '费用类型',
+  `com_date` datetime DEFAULT NULL COMMENT '	报修时间',
+  `handle_date` datetime DEFAULT NULL COMMENT '处理时间',
+  `owner_id` int(11) DEFAULT NULL COMMENT '报修人',
+  `status` int(2) DEFAULT NULL COMMENT '处理状态',
+  `clr` int(11) DEFAULT NULL COMMENT '处理人',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '报修内容',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
@@ -351,9 +335,9 @@ INSERT INTO `repair` VALUES ('14', '3', '2021-04-29 10:54:02', null, '2', '0', n
 DROP TABLE IF EXISTS `repairtype`;
 CREATE TABLE `repairtype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `remarks` varchar(250) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL COMMENT '类型名',
+  `remarks` varchar(250) DEFAULT NULL COMMENT '备注',
+  `status` int(11) DEFAULT NULL COMMENT '状态:大概是1为公开',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
@@ -374,10 +358,10 @@ INSERT INTO `repairtype` VALUES ('7', '电路维修', null, '1');
 DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
-  `remarks` varchar(200) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL COMMENT '用户名',
+  `password` varchar(20) DEFAULT NULL COMMENT '密码',
+  `type` int(11) DEFAULT NULL COMMENT '类型:1为管理员,0为一般用户',
+  `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 

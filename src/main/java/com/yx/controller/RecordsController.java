@@ -130,6 +130,11 @@ public class RecordsController {
         }
       }
 
+    /**
+     * 根据ID删除记录
+     * @param ids
+     * @return
+     */
       @RequestMapping("/deleteByIds")
       @Transactional(rollbackFor = {RuntimeException.class,Error.class})
       public R deleteByIds(String ids){

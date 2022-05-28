@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author kappy
@@ -49,106 +49,93 @@ public class PropertyInfoController {
     @Resource
     private IPropertyTypeService propertyTypeService;
 
+    /**
+     * 查询所有基本信息
+     *
+     * @param propertyInfo 过滤项
+     * @param numbers
+     * @param page
+     * @param limit
+     * @return
+     */
     @RequestMapping("/queryPropertyAll")
     public JsonObject queryPropertyAll(PropertyInfo propertyInfo, String numbers,
                                        @RequestParam(defaultValue = "1") Integer page,
-                                       @RequestParam(defaultValue = "15") Integer limit){
-        if(numbers!=null){
-            House house=new House();
+                                       @RequestParam(defaultValue = "15") Integer limit) {
+        if (numbers != null) {
+            House house = new House();
             house.setNumbers(numbers);
             propertyInfo.setHouse(house);
         }
 
-        PageInfo<PropertyInfo> pageInfo=propertyInfoService.findPropertyInfoAll(page,limit,propertyInfo);
-        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
+        PageInfo<PropertyInfo> pageInfo = propertyInfoService.findPropertyInfoAll(page, limit, propertyInfo);
+        return new JsonObject(0, "ok", pageInfo.getTotal(), pageInfo.getList());
 
     }
 
-
-    @RequestMapping("/queryPropertyAll2")
-    public JsonObject queryPropertyAll2(PropertyInfo propertyInfo, HttpServletRequest request,
-                                       @RequestParam(defaultValue = "1") Integer page,
-                                        @RequestParam(defaultValue = "15") Integer limit){
-        Userinfo userinfo= (Userinfo) request.getSession().getAttribute("user");
-        String username=userinfo.getUsername();
-        //根据username获取登录账号得业主id
-        Owner owner=ownerService.queryOwnerByName(username);
-        Integer houId= owner.getHouseId();
-        propertyInfo.setHouseId(houId);
-        PageInfo<PropertyInfo> pageInfo=propertyInfoService.findPropertyInfoAll(page,limit,
-                propertyInfo);
-        return new JsonObject(0,"ok",pageInfo.getTotal(),pageInfo.getList());
-
-    }
-
-
+    /**
+     * 添加物业需缴费记录
+     *
+     * @param propertyInfo 物业需缴费记录
+     * @return 添加物业需缴费记录结果
+     */
     @ApiOperation(value = "新增")
     @RequestMapping("/initData")
-    public R initData(@RequestBody PropertyInfo propertyInfo){
-        //获取开始时间  结束时间  备注
-        List<House> list=houseService.findList();
-        for(House house:list){
-           //查询物业费收费的标准  建议 物业收费类型通过前台传值
-            PropertyType type=propertyTypeService.findById(new Long(1));
-            double price=type.getPrice();//收费标准
-            Integer status= house.getStatus();
-            if(status!=null || status!=0){//如果已经收房
-                //物业费
-                double money=  house.getArea()*price;
-                propertyInfo.setMoney(money);
-                propertyInfo.setHouseId(house.getId());
-                propertyInfo.setStatus(0);
-                propertyInfo.setTypeId(1);
-                propertyInfoService.add(propertyInfo);
-            }
-        }
-
+    public R initData(@RequestBody PropertyInfo propertyInfo) {
+        if (propertyInfo.getTypeId() == 1)
+            propertyInfo.setNumber(propertyInfo.getHouse().getArea());
+        PropertyType type = propertyTypeService.findById(propertyInfo.getTypeId());
+        propertyInfo.setMoney(type.getPrice() * propertyInfo.getNumber());
+        propertyInfoService.add(propertyInfo);
         return R.ok();
     }
 
-
-
-
-
+    /**
+     * 根据ID删除多个物业缴费记录
+     *
+     * @param ids 多个缴费ID 以,分开
+     * @return 删除结果
+     */
     @ApiOperation(value = "删除")
     @RequestMapping("/deleteByIds")
-    public R delete(String ids){
-        List<String> list= Arrays.asList(ids.split(","));
-        for(String id:list){
-            Long idLong=new Long(id);
+    public R delete(String ids) {
+        List<String> list = Arrays.asList(ids.split(","));
+        for (String id : list) {
+            Long idLong = new Long(id);
             propertyInfoService.delete(idLong);
         }
         return R.ok();
     }
 
-
+    /**
+     * 根据ID更新物业缴费记录为已缴费
+     *
+     * @param id 缴费ID
+     * @return 更新结果
+     */
     @ApiOperation(value = "更新")
     @RequestMapping("/update")
-    public R update(Integer id){
-        PropertyInfo propertyInfo =new PropertyInfo();
+    public R update(Integer id) {
+        PropertyInfo propertyInfo = new PropertyInfo();
         propertyInfo.setId(id);
         propertyInfo.setStatus(1);
-        int num=propertyInfoService.updateData(propertyInfo);
-        if(num>0){
+        int num = propertyInfoService.updateData(propertyInfo);
+        if (num > 0) {
             return R.ok();
         }
         return R.fail("失败");
     }
 
-    @ApiOperation(value = "查询分页数据")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "页码"),
-        @ApiImplicitParam(name = "pageCount", value = "每页条数")
-    })
-    @GetMapping()
-    public IPage<PropertyInfo> findListByPage(@RequestParam Integer page,
-                                              @RequestParam Integer pageCount){
-        return propertyInfoService.findListByPage(page, pageCount);
-    }
 
+    /**
+     * 根据id查询缴费记录
+     *
+     * @param id 缴费ID
+     * @return 缴费记录
+     */
     @ApiOperation(value = "id查询")
     @GetMapping("{id}")
-    public PropertyInfo findById(@PathVariable Long id){
+    public PropertyInfo findById(@PathVariable Long id) {
         return propertyInfoService.findById(id);
     }
 

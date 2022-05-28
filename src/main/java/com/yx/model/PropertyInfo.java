@@ -38,9 +38,11 @@ public class PropertyInfo implements Serializable {
     private PropertyType type;
 
 
-    private Integer typeId;
+    private Long typeId;
 
     private Double money;
+
+    private Double number;
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date startDate;
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd")
