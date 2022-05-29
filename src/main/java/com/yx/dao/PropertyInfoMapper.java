@@ -21,8 +21,8 @@ public interface PropertyInfoMapper extends BaseMapper<PropertyInfo> {
     /**
      * 根据登记时间和房子id当前记录信息
      */
-    void deleteByHouIdAndTimeAndTypeId( @Param("houId") Long houId, @Param("endDate") String onTime,
-                               @Param("typeId") Long typeId);
+    void deleteByHouIdAndTimeAndTypeId( @Param("houId") Integer houId, @Param("endDate") String onTime,
+                               @Param("typeId") Integer typeId);
 
     List<PropertyInfo> queryListAll(PropertyInfo propertyInfo);
 }

@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -38,7 +40,7 @@ public class PropertyInfo implements Serializable {
     private PropertyType type;
 
 
-    private Long typeId;
+    private Integer typeId;
 
     private Double money;
 
@@ -50,7 +52,7 @@ public class PropertyInfo implements Serializable {
 
     private Integer status;
 
-    private Long houseId;
+    private Integer houseId;
 
     private String remarks;
 

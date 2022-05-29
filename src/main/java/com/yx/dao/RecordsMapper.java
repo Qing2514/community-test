@@ -16,6 +16,6 @@ public interface RecordsMapper extends BaseMapper<Records> {
     List<RecordVo> queryRecordsAll(RecordVo recordVo);
 
     //根据房子id和类型id获取最后一次记录信息
-    Records queryByHouIdAndTypeId(@Param("houId") Long houId, @Param("typeId") Long typeId);
+    Records queryByHouIdAndTypeId(@Param("houId") Integer houId, @Param("typeId") Integer typeId);
 
 }

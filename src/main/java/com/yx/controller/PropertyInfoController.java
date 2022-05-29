@@ -84,7 +84,7 @@ public class PropertyInfoController {
     public R initData(@RequestBody PropertyInfo propertyInfo) {
         if (propertyInfo.getTypeId() == 1)
             propertyInfo.setNumber(propertyInfo.getHouse().getArea());
-        PropertyType type = propertyTypeService.findById(propertyInfo.getTypeId());
+        PropertyType type = propertyTypeService.findById(new Long(propertyInfo.getTypeId()));
         propertyInfo.setMoney(type.getPrice() * propertyInfo.getNumber());
         propertyInfoService.add(propertyInfo);
         return R.ok();

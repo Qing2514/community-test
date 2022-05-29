@@ -281,8 +281,7 @@ CREATE TABLE `records` (
   `num` double(5,2) DEFAULT NULL COMMENT '上次度数',
   `num2` double(5,2) DEFAULT NULL COMMENT '本次度数',
   `house_id` int(11) DEFAULT NULL COMMENT '房屋ID',
-  `up_time` datetime DEFAULT NULL COMMENT '更新时间:没啥用',
-  `on_time` datetime DEFAULT NULL COMMENT '申请时间:没啥用',
+  `property_info_id` int(11) DEFAULT NULL COMMENT '物业收费ID',
   `check_time` datetime DEFAULT NULL COMMENT '登记时间',
   `meter` varchar(25) DEFAULT NULL COMMENT '抄表员姓名',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
@@ -293,10 +292,10 @@ CREATE TABLE `records` (
 -- Records of records
 -- ----------------------------
 INSERT INTO `records` VALUES 
-('1', '2', '200.00', '300.00', '1', '2020-10-01 09:28:11', '2020-11-06 09:28:16', '2020-11-12 09:28:23', '张三', '无'),
-('2', '2', '100.00', '200.00', '1', '2020-09-23 10:34:48', '2020-10-31 10:34:57', '2020-10-30 10:35:05', 'yx', ''),
-('9', '3', '0.00', '123.00', '4', '2021-05-05 16:00:00', '2021-05-05 16:00:00', '2021-05-06 13:48:56', 'zhangsan', ''),
-('10', '3', '0.00', '40.00', '1', '2022-02-24 16:00:00', '2022-02-24 16:00:00', '2022-02-25 13:56:22', 'yx5411', 'ww');
+('1', '2', '200.00', '300.00', '1', null, '2020-10-01 09:28:11', '张三', '无'),
+('2', '2', '100.00', '200.00', '1', null,'2020-09-23 10:34:48', 'yx', ''),
+('9', '3',   '0.00', '123.00', '4', null,'2021-05-05 16:00:00', 'zhangsan', ''),
+('10','3',   '0.00',  '40.00', '1', null,'2022-02-24 16:00:00', 'yx5411', 'ww');
 
 -- ----------------------------
 -- Table structure for repair
