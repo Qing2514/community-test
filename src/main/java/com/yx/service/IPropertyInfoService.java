@@ -23,14 +23,6 @@ public interface IPropertyInfoService extends IService<PropertyInfo> {
                                                PropertyInfo propertyInfo);
 
     /**
-     * 根据时间和房子id获取相关记录信息
-     */
-    void deleteInfoByHouIdAndTimeAndTypeId(@Param("houId") Integer houId,
-                                           @Param("endDate") Date endDate,
-                                           @Param("typeId") Integer typeId);
-
-
-    /**
      * 查询分页数据
      *
      * @param page      页码

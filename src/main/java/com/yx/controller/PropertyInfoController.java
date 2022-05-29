@@ -23,12 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author kappy
- * @since 2020-11-08
+ * 物业收费控制器
  */
 @Api(tags = {""})
 @RestController
@@ -39,12 +34,6 @@ public class PropertyInfoController {
 
     @Resource
     private IPropertyInfoService propertyInfoService;
-
-    @Resource
-    private IHouseService houseService;
-
-    @Resource
-    private IOwnerService ownerService;
 
     @Resource
     private IPropertyTypeService propertyTypeService;
@@ -123,7 +112,7 @@ public class PropertyInfoController {
         if (num > 0) {
             return R.ok();
         }
-        return R.fail("失败");
+        return R.fail("fail");
     }
 
 

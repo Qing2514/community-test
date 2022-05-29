@@ -15,12 +15,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author kappy
- * @since 2020-11-08
+ * 费用类型控制器
  */
 @Api(tags = {""})
 @RestController

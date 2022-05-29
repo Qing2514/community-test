@@ -24,12 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author kappy
- * @since 2020-10-28
+ * 抄表控制器
  */
 @RestController
 @RequestMapping("/records")

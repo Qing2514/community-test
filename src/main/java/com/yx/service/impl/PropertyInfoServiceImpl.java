@@ -38,14 +38,6 @@ public class PropertyInfoServiceImpl extends ServiceImpl<PropertyInfoMapper, Pro
         return new PageInfo(list);
     }
 
-    @Override
-    public void deleteInfoByHouIdAndTimeAndTypeId(Integer houId, Date endTime, Integer typeId) {
-
-         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-         String dateString = formatter.format(endTime);
-         // dateString=dateString.substring(0,9);
-         propertyInfoDao.deleteByHouIdAndTimeAndTypeId(houId, dateString, typeId);
-    }
 
     @Override
     public IPage<PropertyInfo> findListByPage(Integer page, Integer pageCount){
