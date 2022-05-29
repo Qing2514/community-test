@@ -52,6 +52,7 @@ public class PropertyInfoController {
                                        @RequestParam(defaultValue = "1") Integer page,
                                        @RequestParam(defaultValue = "15") Integer limit) {
         if (numbers != null) {
+            if (numbers.length() > 50) return new JsonObject(400, "fail", null,null);
             House house = new House();
             house.setNumbers(numbers);
             propertyInfo.setHouse(house);
@@ -127,5 +128,6 @@ public class PropertyInfoController {
     public PropertyInfo findById(@PathVariable Long id) {
         return propertyInfoService.findById(id);
     }
+
 
 }

@@ -1,6 +1,10 @@
 package com.yx.interceptor;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class LoginConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration=
+        InterceptorRegistration registration =
                 registry.addInterceptor(new LoginInterceptor());
         //拦截信息
         registration.addPathPatterns("/**");
@@ -21,6 +25,19 @@ public class LoginConfig implements WebMvcConfigurer {
                 "/**/*.css",
                 "/**/images/*.*"
         );
+        registry.addInterceptor(new TypeInterceptor()).excludePathPatterns(
+                "/loginIn",
+                "/**.html",
+                "/**/*.js",
+                "/**/*.css",
+                "/**/images/*.*"
+        );
 
+    }
+
+    @Bean
+    @Qualifier(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
+    public DispatcherServlet dispatcherServlet() {
+        return new XinDispatcherServlet();
     }
 }
