@@ -58,6 +58,14 @@ public interface IUserinfoService extends IService<Userinfo> {
      */
     Userinfo findById(Long id);
 
+    /**
+     * 根据用户名查询数据
+     *
+     * @param name 用户名
+     * @return Userinfo
+     */
+    Userinfo findByName(String name);
+
     Userinfo queryUserByNameAndPwd(Userinfo userinfo);
 
     void deleteUserByUsername(String username);

@@ -44,14 +44,45 @@ public class TypeInterceptor implements HandlerInterceptor {
                 Object jsonBody = JSON.parse(body);    //先转换成Object
                 Map map = (Map) jsonBody;
                 System.out.println(map);
+                check = checkInitData(map);
+            }catch (Exception e){
+                response.sendRedirect(request.getContextPath() + "/fail");
+                return false;
+            }
+        }
+        else if(uri.contains("add") && uri.contains("records")){
+            String body = HttpHelper.getBodyString(request);
+            System.out.println("请求体 ： " + body);
+            try {
+                Object jsonBody = JSON.parse(body);    //先转换成Object
+                Map map = (Map) jsonBody;
+                System.out.println(map);
                 check = checkAdd(map);
             }catch (Exception e){
                 response.sendRedirect(request.getContextPath() + "/fail");
                 return false;
             }
-
         }
         if (!check) response.sendRedirect(request.getContextPath() + "/fail");
+        return check;
+    }
+
+    private boolean checkAdd(Map map) {
+        boolean check = true;
+        check = map.containsKey("houseId") && map.containsKey("typeId")
+                && map.containsKey("num2") && map.containsKey("checkTime")
+                && map.containsKey("meter");
+
+        if (check) {
+            int houseId = (int) map.get("houseId");
+            int typeId = (int) map.get("typeId");
+            int num2 = (int) map.get("num2");
+            String checkTime = String.valueOf(map.get("checkTime"));
+            String meter = String.valueOf(map.get("meter"));
+            String regex = "\\d{4}-\\d{2}-\\d{2}";
+            check = num2 >= 0 && num2 < 10000.0 &&
+                    checkTime.matches(regex);
+        }
         return check;
     }
 
@@ -72,7 +103,7 @@ public class TypeInterceptor implements HandlerInterceptor {
         return check;
     }
 
-    private boolean checkAdd(Map map) throws ParseException {
+    private boolean checkInitData(Map map) throws ParseException {
         boolean check = true;
         check = map.containsKey("houseId") && map.containsKey("typeId")
                 && map.containsKey("number") && map.containsKey("status")

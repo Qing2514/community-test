@@ -1,5 +1,6 @@
 package com.yx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author kappy
@@ -29,40 +30,45 @@ public class UserinfoServiceImpl extends ServiceImpl<UserinfoMapper, Userinfo> i
 
 
     @Override
-    public IPage<Userinfo> findListByPage(Integer page, Integer pageCount){
+    public IPage<Userinfo> findListByPage(Integer page, Integer pageCount) {
         IPage<Userinfo> wherePage = new Page<>(page, pageCount);
         Userinfo where = new Userinfo();
 
-        return   baseMapper.selectPage(wherePage, Wrappers.query(where));
+        return baseMapper.selectPage(wherePage, Wrappers.query(where));
     }
 
     @Override
     public PageInfo<Userinfo> findUserinfoAll(int page, int pageSize, Userinfo userinfo) {
-        PageHelper.startPage(page,pageSize);
+        PageHelper.startPage(page, pageSize);
         //查询的结果集
-        List<Userinfo> list=userinfoMapper.queryUserinfoAll(userinfo);
-        PageInfo<Userinfo> pageInfo=new PageInfo<>(list);
+        List<Userinfo> list = userinfoMapper.queryUserinfoAll(userinfo);
+        PageInfo<Userinfo> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
-    public int add(Userinfo userinfo){
+    public int add(Userinfo userinfo) {
         return baseMapper.insert(userinfo);
     }
 
     @Override
-    public int delete(Long id){
+    public int delete(Long id) {
         return baseMapper.deleteById(id);
     }
 
     @Override
-    public int updateData(Userinfo userinfo){
+    public int updateData(Userinfo userinfo) {
         return baseMapper.updateById(userinfo);
     }
 
     @Override
-    public Userinfo findById(Long id){
-        return  baseMapper.selectById(id);
+    public Userinfo findById(Long id) {
+        return baseMapper.selectById(id);
+    }
+
+    @Override
+    public Userinfo findByName(String name) {
+        return userinfoMapper.selectOne(new QueryWrapper<Userinfo>().eq("username", name));
     }
 
     @Override

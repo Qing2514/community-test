@@ -83,7 +83,7 @@ public class PropertyInfoController {
         if (propertyInfo.getTypeId() != null && propertyInfo.getTypeId() == 1)
             propertyInfo.setNumber(propertyInfo.getHouse().getArea());
         // 检查
-        if (checkExist(propertyInfo)) {
+        if (propertyInfoService.checkExist(propertyInfo)) {
             propertyInfoService.add(propertyInfo);
             return R.ok();
         } else return R.fail("fail");
@@ -146,14 +146,6 @@ public class PropertyInfoController {
         return propertyInfoService.findById(id);
     }
 
-
-    private boolean checkExist(PropertyInfo info) {
-        PropertyType type = propertyTypeService.findById(new Long(info.getTypeId()));
-        if (type != null)
-            info.setMoney(type.getPrice() * info.getNumber());
-        else return false;
-        return houseService.findById((long) info.getHouseId()) != null;
-    }
 
 
 }

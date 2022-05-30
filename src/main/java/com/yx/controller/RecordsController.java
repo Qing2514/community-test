@@ -9,6 +9,8 @@ import com.yx.model.Records;
 import com.yx.service.IPropertyInfoService;
 import com.yx.service.IPropertyTypeService;
 import com.yx.service.IRecordsService;
+import com.yx.service.IUserinfoService;
+import com.yx.service.impl.UserinfoServiceImpl;
 import com.yx.util.IdWorker;
 import com.yx.util.JsonObject;
 import com.yx.util.R;
@@ -40,6 +42,9 @@ public class RecordsController {
 
     @Resource
     private IPropertyInfoService propertyInfoService;
+
+    @Resource
+    private IUserinfoService userinfoService;
 
     @Autowired
     private IdWorker idWorker;
@@ -86,6 +91,9 @@ public class RecordsController {
         //根据参数房子id和类型id 获取最后一次登记信息
         Integer houId = records.getHouseId();
         Integer typeId = records.getTypeId();
+        String meter = records.getMeter();
+        if (!propertyInfoService.checkExist(houId, typeId)
+                || userinfoService.findByName(meter) == null) return R.fail("fail");
         //获取最后一次记录信息
         Records rec = recordsService.queryByHouIdAndTypeId(houId, typeId);
         PropertyInfo info = new PropertyInfo();
@@ -119,7 +127,7 @@ public class RecordsController {
         if (num > 0) {
             return R.ok();
         } else {
-            return R.fail("异常");
+            return R.fail("fail");
         }
     }
 

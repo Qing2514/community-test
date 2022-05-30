@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.yx.model.PropertyInfo;
+import com.yx.model.PropertyType;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -62,4 +63,8 @@ public interface IPropertyInfoService extends IService<PropertyInfo> {
      * @return PropertyInfo
      */
     PropertyInfo findById(Long id);
+
+    boolean checkExist(PropertyInfo info) ;
+
+    boolean checkExist(Integer houId, Integer typeId);
 }
