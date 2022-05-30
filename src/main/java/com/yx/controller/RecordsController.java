@@ -115,14 +115,14 @@ public class RecordsController {
             info.setRemarks(records.getRemarks());
             info.setStartDate(rec.getCheckTime());
             info.setEndDate(records.getCheckTime());
-            num = propertyInfoService.add(info);                    //添加记录信息
+            propertyInfoService.add(info);                    //添加记录信息
             //获取上次表的度数  上次抄表时间
             records.setPropertyInfoId(info.getId());
             records.setNum(rec.getNum2());
         } else records.setNum(0.0);       // 同时修改本次抄表记录，记录上一次的度数
 
         //添加记录信息到数据库
-        recordsService.add(records);
+        num = recordsService.add(records);
 
         if (num > 0) {
             return R.ok();
@@ -149,7 +149,7 @@ public class RecordsController {
             //删除登记表记录信息
             recordsService.delete(idLong);
             //删除物业收费信息表相关信息
-            propertyInfoService.delete((long) records.getPropertyInfoId());
+            if (records.getPropertyInfoId() != null) propertyInfoService.delete((long) records.getPropertyInfoId());
         }
         return R.ok();
     }
