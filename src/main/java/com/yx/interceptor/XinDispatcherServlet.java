@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @summary 自定义 DispatcherServlet 来分派 XinHttpServletRequestWrapper
+ * @summary 自定义 DispatcherServlet 来分派 RequestWrapper
  */
 public class XinDispatcherServlet extends DispatcherServlet {
 
@@ -19,6 +19,6 @@ public class XinDispatcherServlet extends DispatcherServlet {
      */
     @Override
     protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        super.doDispatch(new XinHttpServletRequestWrapper(request), response);
+        super.doDispatch(new RequestWrapper(request), response);
     }
 }

@@ -15,12 +15,16 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
 
 /**
  * 物业收费控制器
@@ -38,6 +42,10 @@ public class PropertyInfoController {
     @Resource
     private IPropertyTypeService propertyTypeService;
 
+    @Resource
+    private IHouseService houseService;
+
+
     /**
      * 查询所有基本信息
      *
@@ -52,7 +60,7 @@ public class PropertyInfoController {
                                        @RequestParam(defaultValue = "1") Integer page,
                                        @RequestParam(defaultValue = "15") Integer limit) {
         if (numbers != null) {
-            if (numbers.length() > 50) return new JsonObject(400, "fail", null,null);
+            if (numbers.length() > 50) return new JsonObject(400, "fail", null, null);
             House house = new House();
             house.setNumbers(numbers);
             propertyInfo.setHouse(house);
@@ -72,13 +80,16 @@ public class PropertyInfoController {
     @ApiOperation(value = "新增")
     @RequestMapping("/initData")
     public R initData(@RequestBody PropertyInfo propertyInfo) {
-        if (propertyInfo.getTypeId() == 1)
+        if (propertyInfo.getTypeId() != null && propertyInfo.getTypeId() == 1)
             propertyInfo.setNumber(propertyInfo.getHouse().getArea());
-        PropertyType type = propertyTypeService.findById(new Long(propertyInfo.getTypeId()));
-        propertyInfo.setMoney(type.getPrice() * propertyInfo.getNumber());
-        propertyInfoService.add(propertyInfo);
-        return R.ok();
+        // 检查
+        if (checkExist(propertyInfo)) {
+            propertyInfoService.add(propertyInfo);
+            return R.ok();
+        } else return R.fail("fail");
+
     }
+
 
     /**
      * 根据ID删除多个物业缴费记录
@@ -127,6 +138,15 @@ public class PropertyInfoController {
     @GetMapping("{id}")
     public PropertyInfo findById(@PathVariable Long id) {
         return propertyInfoService.findById(id);
+    }
+
+
+    private boolean checkExist(PropertyInfo info) {
+        PropertyType type = propertyTypeService.findById(new Long(info.getTypeId()));
+        if (type != null)
+            info.setMoney(type.getPrice() * info.getNumber());
+        else return false;
+        return houseService.findById((long) info.getHouseId()) != null;
     }
 
 
