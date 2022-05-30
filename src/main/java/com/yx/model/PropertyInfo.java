@@ -1,6 +1,7 @@
 package com.yx.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -34,9 +35,11 @@ public class PropertyInfo implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-
+    @TableField(exist = false)
     private  House house;
+    @TableField(exist = false)
     private  Owner owner;
+    @TableField(exist = false)
     private PropertyType type;
 
 

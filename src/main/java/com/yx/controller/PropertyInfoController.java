@@ -100,7 +100,13 @@ public class PropertyInfoController {
     @ApiOperation(value = "删除")
     @RequestMapping("/deleteByIds")
     public R delete(String ids) {
+        String reg = "((\\d+,)*)\\d";
+        if (!ids.matches(reg)) return R.fail("fail");
         List<String> list = Arrays.asList(ids.split(","));
+        for (String id : list) {
+            if (propertyInfoService.findById(Long.valueOf(id)) == null)
+                return R.fail("fail");
+        }
         for (String id : list) {
             Long idLong = new Long(id);
             propertyInfoService.delete(idLong);
